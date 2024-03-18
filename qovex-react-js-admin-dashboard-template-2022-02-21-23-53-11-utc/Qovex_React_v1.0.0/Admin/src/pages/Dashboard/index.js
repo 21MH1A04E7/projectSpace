@@ -1,157 +1,128 @@
-import React from "react"
-import { Row, Col, CardBody, Card, Progress } from "reactstrap"
-import { Link } from "react-router-dom"
+import React from "react";
+import { Row, Col, CardBody, Card, Progress } from "reactstrap";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 //Import Components
-import LineChart from "./line-chart"
-import RevenueChart from "./revenue-chart"
-import SalesAnalytics from "./sales-analytics"
-import ScatterChart from "./scatter-analytics"
-import LatestTransaction from "./latest-transaction"
+import LineChart from "./line-chart";
+import RevenueChart from "./revenue-chart";
+import SalesAnalytics from "./sales-analytics";
+import ScatterChart from "./scatter-analytics";
+import LatestTransaction from "./latest-transaction";
 
 //Import Image
-import widgetImage from "../../assets/images/widget-img.png"
+import widgetImage from "../../assets/images/widget-img.png";
 import Overview from "./Overview";
-import Reviews from './Reviews';
-import Revenue from './Revenue';
-import Inbox  from './Inbox';
+import Reviews from "./Reviews";
+import Revenue from "./Revenue";
+import Inbox from "./Inbox";
 
 const Dashboard = () => {
-
+  const [inputData, setInputData] = useState("");
+  const [data,setData]=useState({})
+  const [marks,setMarks]=useState({})
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setInputData(e.target.value);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:5050/students/details", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roll_number: inputData }),
+      });
+      const data = await response.json();
+      setData({Name:data.student_name,RollNo:data.roll_number,Father:data.
+        father_name,Mother:data.mother_name,Branch:data.branch,College:data.college
+        });
+        setMarks({SccPercent:data.ssc_percent,InterPercent:data.inter_percent
+        });
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  };
+  console.log(data)
   return (
     <React.Fragment>
       <div className="page-content">
-  
         <Row>
           <div className="col-12">
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <h4 className="page-title mb-0 font-size-18">Dashboard</h4>
+              <h4 className="page-title mb-0 font-size-18">StudentDetails</h4>
 
               <div className="page-title-right">
                 <ol className="breadcrumb m-0">
-                  <li className="breadcrumb-item active">Welcome to Qovex Dashboard</li>
+                  <li className="breadcrumb-item active">
+                    Welcome to technical hub
+                  </li>
                 </ol>
               </div>
-
             </div>
           </div>
         </Row>
-
+        <Row
+          style={{ backgroundColor: "white ", paddingTop: "30px" }}
+          className="mb-2"
+        >
+          <label htmlFor="searchInput">ENTER ROLL NO</label>
+          <div style={{ padding: "10px" }}>
+            <input
+              style={{ borderRadius: "5px", marginRight: "2px" }}
+              type="text"
+              id="searchInput"
+              value={inputData}
+              onChange={handleChange}
+              placeholder="Enter your search query"
+            />
+            <button
+              onClick={handleSubmit}
+              style={{
+                fontSize: "15px",
+                backgroundColor: "#30336b",
+                color: "white",
+                borderRadius: "5px",
+              }}
+            >
+              Search
+            </button>
+          </div>
+        </Row>
         <Row>
-          <Col lg={3}>
-            <Card>
-              <CardBody>
-                <div className="d-flex align-items-start">
-                  <div className="avatar-sm font-size-20 me-3">
-                    <span className="avatar-title bg-soft-primary text-primary rounded">
-                      <i className="mdi mdi-tag-plus-outline"></i>
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-size-16 mt-2">New Orders</div>
-                  </div>
-                </div>
-                <h4 className="mt-4">1,368</h4>
-                <div className="row">
-                  <div className="col-7">
-                    <p className="mb-0"><span className="text-success me-2"> 0.28% <i
-                      className="mdi mdi-arrow-up"></i> </span></p>
-                  </div>
-                  <div className="col-5 align-self-center">
-
-                    <Progress
-                      value="62"
-                      color="primary"
-                      className="bg-transparent progress-sm"
-                      size="sm"
-                    />
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-            <Card>
-              <CardBody>
-                <div className="d-flex align-items-start">
-                  <div className="avatar-sm font-size-20 me-3">
-                    <span className="avatar-title bg-soft-primary text-primary rounded">
-                      <i className="mdi mdi-account-multiple-outline"></i>
-                    </span>
-                  </div>
-                  <div className="flex-1">
-                    <div className="font-size-16 mt-2">New Users</div>
-
-                  </div>
-                </div>
-                <h4 className="mt-4">2,456</h4>
-                <Row>
-                  <div className="col-7">
-                    <p className="mb-0"><span className="text-success me-2"> 0.16% <i
-                      className="mdi mdi-arrow-up"></i> </span></p>
-                  </div>
-                  <div className="col-5 align-self-center">
-                    <Progress
-                      value="62"
-                      color="success"
-                      className="bg-transparent progress-sm"
-                      size="sm"
-                    />
-                  </div>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg={6}>
+        {Object.entries(data).map(([key, value]) => (
+        <Col key={key} lg={14} sm={10}>
+          <div className="bg-light border gap-3 fs-3 border border-dark p-2 rounded-3">
+            <span className="text-uppercase">{`${key} :`}</span>
+            <span className="p-2">{value}</span>
+          </div>
+        </Col>
+      ))}
+          {/* <Col lg={6}>
             <LineChart />
 
           </Col>
           <Col lg={3}>
             <RevenueChart />
-          </Col>
+          </Col> */}
         </Row>
-        <Row>
-          <Col lg={5}>
-            <SalesAnalytics />
+        <Row className="">
+        <p className="fs-2 ">Studnets marks</p>
+        {Object.entries(marks).map(([key, value]) => (
+          <Col key={key} lg={14} sm={10}>
+            <div className="bg-light border gap-3 fs-3 border border-dark p-2 rounded-3">
+              <span className="text-uppercase">{`${key} :`}</span>
+              <span className="p-2">{value}</span>
+            </div>
           </Col>
-          <Col lg={4}>
-            <ScatterChart />
-          </Col>
-
-          <Col lg={3}>
-            <Card className="bg-primary">
-              <CardBody>
-                <div className="text-white">
-                  <h5 className="text-white">2400 + New Users</h5>
-                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus</p>
-                  <div>
-                    <Link to="#" className="btn btn-outline-success btn-sm">View more</Link>
-                  </div>
-                </div>
-                <Row className="justify-content-end">
-                  <div className="col-8">
-                    <div className="mt-4">
-                      <img src={widgetImage} alt=""
-                        className="img-fluid mx-auto d-block" />
-                    </div>
-                  </div>
-                </Row>
-              </CardBody>
-            </Card>
-          </Col>
+        ))}
         </Row>
-        <Row>
-          <Overview />
-          <Reviews />
-          <Revenue />
-        </Row>
-
-        <Row>
-          <Inbox />
-          <LatestTransaction />
-        </Row>
-
       </div>
+      
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
