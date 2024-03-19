@@ -168,7 +168,7 @@ const Dashboard = () => {
           </Col>
         </Row>
         <Row>
-          <Marks marks={marks}/>
+          <Marks/>
         </Row>
       </div>
     </React.Fragment>
