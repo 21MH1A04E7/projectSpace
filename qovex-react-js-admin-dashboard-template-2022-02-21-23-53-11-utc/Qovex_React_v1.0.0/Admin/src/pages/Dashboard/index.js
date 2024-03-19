@@ -3,7 +3,7 @@ import { Row, Col, CardBody, Card, Progress } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
-
+import Marks from './Marks'
 const Dashboard = () => {
   const [inputData, setInputData] = useState("");
   const [data, setData] = useState({});
@@ -166,6 +166,9 @@ const Dashboard = () => {
               )}
             </div>
           </Col>
+        </Row>
+        <Row>
+          <Marks marks={marks}/>
         </Row>
       </div>
     </React.Fragment>
