@@ -121,7 +121,7 @@ const studentDetailsSchema = new mongoose.Schema({
   mother_name: {
     type: String,
   },
-  mother_occupation:{
+ mother_occupation:{
   type:String
   },
   mother_mobile_no: {

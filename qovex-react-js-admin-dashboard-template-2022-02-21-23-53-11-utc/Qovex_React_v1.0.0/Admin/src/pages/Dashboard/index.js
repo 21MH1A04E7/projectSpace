@@ -11,8 +11,8 @@ const Dashboard = () => {
   const [marks, setMarks] = useState({});
   const inputRef = useRef(null);
   const handleChange = (e) => {
-    console.log(e.target.value);
-    setInputData(e.target.value);
+    const roll=e.target.value.toUpperCase()
+    setInputData(roll);
   };
   const [showDetails, setShowDetails] = useState(false);
 
@@ -35,6 +35,11 @@ const Dashboard = () => {
         body: JSON.stringify({ roll_number: inputData }),
       });
       const data = await response.json();
+      console.log(inputData)
+      if(data.message=='not found'){
+        alert('User not exits')
+        return 
+      }
       setData({
         Name: data.student_name,
         RollNo: data.roll_number,
@@ -52,6 +57,10 @@ const Dashboard = () => {
       setParentDetails({
         Father: data.father_name,
         Mother: data.mother_name,
+        'Father Occupation':data.father_occupation,
+        'Annucal Income':data.annucal_income,
+        'Mother Occupation':data.mother_occupation,
+        'permanent_address':data.permanent_address
       });
       setMarks({
         SccPercent: data.ssc_percent,
@@ -61,7 +70,6 @@ const Dashboard = () => {
       console.error("Error:", error.message);
     }
   };
-  console.log(data);
   return (
     <React.Fragment>
       <div className="page-content">
@@ -108,58 +116,57 @@ const Dashboard = () => {
           </div>
         </Row>
         <Row>
-  <Col lg={6} md={6} sm={12}>
-    <div className="table-responsive">
-      <button onClick={toggleDetails} className="btn btn-primary mb-3">
-        {showDetails ? "Hide Student Details " : "Show Student Details"}
-      </button>
-      {showDetails && (
-        <table className="table table-bordered table-striped">
-          <thead className="table-dark">
-            <tr className="text-uppercase">
-              <th>Student</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(data).map(([key, value]) => (
-              <tr key={key}>
-                <td>{key}</td>
-                <td>{value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  </Col>
-  <Col lg={6} md={6} sm={12}>
-    <div className="table-responsive">
-      <button onClick={toggleParent} className="btn btn-primary mb-3">
-        {showParent ? "Hide Parents Details" : "Show Parents Details"}
-      </button>
-      {showParent && (
-        <table className="table table-bordered table-striped">
-          <thead className="table-dark">
-            <tr className="text-uppercase">
-              <th>Parents</th>
-              <th>Information</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.entries(parentDetails).map(([key, value]) => (
-              <tr key={key}>
-                <td>{key}</td>
-                <td>{value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
-  </Col>
-</Row>
-
+          <Col lg={6} md={6} sm={12}>
+            <div className="table-responsive">
+              <button onClick={toggleDetails} className="btn btn-primary mb-3">
+                {showDetails ? "Hide Student Details " : "Show Student Details"}
+              </button>
+              {showDetails && (
+                <table className="table table-bordered table-striped">
+                  <thead className="table-dark">
+                    <tr className="text-uppercase">
+                      <th>Student</th>
+                      <th>Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(data).map(([key, value]) => (
+                      <tr key={key}>
+                        <td>{key}</td>
+                        <td>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </Col>
+          <Col lg={6} md={6} sm={12}>
+            <div className="table-responsive">
+              <button onClick={toggleParent} className="btn btn-primary mb-3">
+                {showParent ? "Hide Parents Details" : "Show Parents Details"}
+              </button>
+              {showParent && (
+                <table className="table table-bordered table-striped">
+                  <thead className="table-dark">
+                    <tr className="text-uppercase">
+                      <th>Parents</th>
+                      <th>Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(parentDetails).map(([key, value]) => (
+                      <tr key={key}>
+                        <td>{key}</td>
+                        <td>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </Col>
+        </Row>
       </div>
     </React.Fragment>
   );
