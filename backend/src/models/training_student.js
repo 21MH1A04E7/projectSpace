@@ -1,51 +1,97 @@
 const mongoose = require('mongoose');
 
 const traingSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  lastname: String,
-  roll_number: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  mobile: String,
-  email: {
-    type: String,
-    required: true
-  },
-  branch:{
-    type :String ,
+  name:{
+    type:String,
     required:true
   },
-  year: String,
-  college: String,
-  course: String,
-  course_id: Number,
-  course_type: String,
-  duration: String,
-  date: String,
-  register_date: String,
-  type: String,
-  fee: Number,
-  amount: Number,
-  discount: Number,
-  refund: Number,
-  refund_amount: Number,
-  status: String,
-  gender: String,
-  shirt: String,
-  tshirt_status: String,
-  time_stamp: Date,
-  scholar_type: String,
-  user_type: String,
-  pay_eligibility: Number,
-  refund_eligibility: Number,
-  attendance_eligibility: Number
+  lastname:{
+    type:String,
+  },
+  roll_number:{
+    type:String,
+    required:true,
+    unique:true
+  },
+  mobile:{
+    type:Number
+  },
+  email:{
+    type:String,
+    unique:true
+  },
+  branch:{
+    type:String,
+    required:true
+  },
+  year:{
+    type:String
+  },
+  college:{
+    type:String
+  },
+  course_id:{
+    type:Number
+  },
+  course_type:{
+    type:String
+  },
+  duration:{
+    type:String
+  },
+  date:{
+    type:String
+  },
+  register_data:{
+    type:String
+  },
+  type:{
+    type:String
+  },
+  fee:{
+    type:Number
+  },
+  amount:{
+    type:Number
+  },
+  discount:{
+    type:Number
+  },
+  refund:{
+    type:Number
+  },
+  refund_amount:{
+    type:Number
+  },
+  status:{
+    type:Number
+  },
+  gender:{
+    type:String
+  },
+  shirt:{
+    type:String
+  },
+  tshirt_status:{
+    type:String
+  },
+  scholar_type:{
+    type:String
+  },
+  user_type:{
+    type:String
+  },
+  pay_eligibility:{
+    type:Number,
+  },
+  refund_eligibility:{
+    type:Number
+  },
+  attendance_eligibility:{
+    type:Number
+  }
 });
 
-const TrainingDetails = mongoose.model('trainingdetail', traingSchema);
+const TrainingDetail = mongoose.model('trainingdetail', traingSchema);
 
-module.exports = TrainingDetails;
+module.exports = TrainingDetail;

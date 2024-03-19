@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { test, detailsControllers } = require('../controllers/StudetnsDetailsControls');
 const {detailsController}= require('../controllers/StudetnsDetailsControls')
+const {TrainingController,certificationController}=require('../controllers/TrainingController')
 
-router.get('/', test);
+
 
 router.post('/details',detailsController);
+router.post('/training',TrainingController)
+router.post('/certification',certificationController)
 
 module.exports = router;

@@ -1,15 +1,16 @@
 import React, { Component } from "react"
 import { Row, Col, Card, CardBody } from "reactstrap"
 import ReactApexChart from "react-apexcharts"
-
+import {useState} from 'react'
 class SalesAnalytics extends Component {
   constructor(props) {
+    console.log(props.data)
     super(props)
 
     this.state = {
-      series: [38, 26, 14],
+      series: [37, 26, 14],
       options: {
-        labels: ["Online", "Offline", "Marketing"],
+        labels: ["Inter", "Btech", "SCC"],
         plotOptions: {
           pie: {
             donut: {
@@ -47,22 +48,22 @@ class SalesAnalytics extends Component {
                     <div className="col-6">
                       <div className="py-3">
                         <p className="mb-1 text-truncate"><i
-                          className="mdi mdi-circle text-primary me-1"></i>{" "}Online
+                          className="mdi mdi-circle text-primary me-1"></i>{" "}SCC
                             </p>
-                        <h5>$ 2,652</h5>
+                        <h5>''</h5>
                       </div>
                     </div>
                     <div className="col-6">
                       <div className="py-3">
                         <p className="mb-1 text-truncate"><i
-                          className="mdi mdi-circle text-success me-1"></i>{" "}Offline</p>
+                          className="mdi mdi-circle text-success me-1"></i>{" "}BTECH</p>
                         <h5>$ 2,284</h5>
                       </div>
                     </div>
                     <div className="col-6">
                       <div className="py-3">
                         <p className="mb-1 text-truncate"><i
-                          className="mdi mdi-circle text-warning me-1"></i>{" "}Marketing</p>
+                          className="mdi mdi-circle text-warning me-1"></i>{" "}INTERMIDATE</p>
                         <h5>$ 1,753</h5>
                       </div>
                     </div>
