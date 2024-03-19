@@ -112,6 +112,9 @@ const studentDetailsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  father_occupation:{
+    type:String
+  },
   annucal_income: {
     type: Number,
   },

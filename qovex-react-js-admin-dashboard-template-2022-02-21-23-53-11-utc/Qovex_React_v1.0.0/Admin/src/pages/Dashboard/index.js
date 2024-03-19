@@ -2,14 +2,13 @@ import React from "react";
 import { Row, Col, CardBody, Card, Progress } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import {useRef} from 'react'
-
+import { useRef } from "react";
 
 const Dashboard = () => {
   const [inputData, setInputData] = useState("");
-  const [data,setData]=useState({})
-  const [parentDetails,setParentDetails]=useState({})
-  const [marks,setMarks]=useState({})
+  const [data, setData] = useState({});
+  const [parentDetails, setParentDetails] = useState({});
+  const [marks, setMarks] = useState({});
   const inputRef = useRef(null);
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -19,6 +18,11 @@ const Dashboard = () => {
 
   const toggleDetails = () => {
     setShowDetails(!showDetails);
+  };
+  const [showParent, setShowParent] = useState(false);
+
+  const toggleParent = () => {
+    setShowParent(!showParent);
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,23 +35,33 @@ const Dashboard = () => {
         body: JSON.stringify({ roll_number: inputData }),
       });
       const data = await response.json();
-      setData({Name:data.student_name,RollNo:data.roll_number,DateOfBirth:data.date_of_birth,Gender:data.gender,'Blood Group':data.
-        blood_group,Category:data.
-        category ,Nationality:data.nationality,
-        Religion:data.religion,
-        Mother_tongue
-        :data.mother_tongue,Mobile:data.mobile,'College Mail':data.
-        official_mail,College:data.college});
-        setParentDetails({
-          Father:data.father_name,Mother:data.mother_name,
-        })
-        setMarks({SccPercent:data.ssc_percent,InterPercent:data.inter_percent
-        });
+      setData({
+        Name: data.student_name,
+        RollNo: data.roll_number,
+        DateOfBirth: data.date_of_birth,
+        Gender: data.gender,
+        "Blood Group": data.blood_group,
+        Category: data.category,
+        Nationality: data.nationality,
+        Religion: data.religion,
+        Mother_tongue: data.mother_tongue,
+        Mobile: data.mobile,
+        "College Mail": data.official_mail,
+        College: data.college,
+      });
+      setParentDetails({
+        Father: data.father_name,
+        Mother: data.mother_name,
+      });
+      setMarks({
+        SccPercent: data.ssc_percent,
+        InterPercent: data.inter_percent,
+      });
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
-  console.log(data)
+  console.log(data);
   return (
     <React.Fragment>
       <div className="page-content">
@@ -94,55 +108,59 @@ const Dashboard = () => {
           </div>
         </Row>
         <Row>
-          <Col lg={12} md={8} sm={8}>
-            <div>
+  <Col lg={6} md={6} sm={12}>
+    <div className="table-responsive">
       <button onClick={toggleDetails} className="btn btn-primary mb-3">
-        {showDetails ? 'Hide Student Details ' : 'Show Student Details'}
+        {showDetails ? "Hide Student Details " : "Show Student Details"}
       </button>
       {showDetails && (
-        <div className="table-responsive">
-          <table className="table table-bordered table-striped">
-            <thead className="table-dark">
-              <tr>
-                <th>Student</th>
-                <th>Value</th>
+        <table className="table table-bordered table-striped">
+          <thead className="table-dark">
+            <tr className="text-uppercase">
+              <th>Student</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {Object.entries(data).map(([key, value]) => (
+              <tr key={key}>
+                <td>{key}</td>
+                <td>{value}</td>
               </tr>
-            </thead>
-            <tbody>
-              {Object.entries(data).map(([key, value]) => (
-                <tr key={key}>
-                  <td>{key}</td>
-                  <td>{value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
-            {/* <div className="table-responsive">
-      <table className="table table-bordered table-striped">
-        <thead className="table-dark">
-          <tr>
-            <th>Key</th>
-            <th>Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.entries(data).map(([key, value]) => (
-            <tr key={key}>
-              <td>{key}</td>
-              <td>{value}</td>
+  </Col>
+  <Col lg={6} md={6} sm={12}>
+    <div className="table-responsive">
+      <button onClick={toggleParent} className="btn btn-primary mb-3">
+        {showParent ? "Hide Parents Details" : "Show Parents Details"}
+      </button>
+      {showParent && (
+        <table className="table table-bordered table-striped">
+          <thead className="table-dark">
+            <tr className="text-uppercase">
+              <th>Parents</th>
+              <th>Information</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div> */}
+          </thead>
+          <tbody>
+            {Object.entries(parentDetails).map(([key, value]) => (
+              <tr key={key}>
+                <td>{key}</td>
+                <td>{value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  </Col>
+</Row>
 
-          </Col>
-        </Row>
       </div>
-      
     </React.Fragment>
   );
 };
