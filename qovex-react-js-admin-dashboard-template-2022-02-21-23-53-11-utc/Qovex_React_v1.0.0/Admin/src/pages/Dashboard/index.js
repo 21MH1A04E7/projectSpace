@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, CardBody, Card, Progress } from "reactstrap";
 import { Link } from "react-router-dom";
+import Certification1 from "./Certification1";
 import { useState } from "react";
 import { useRef } from "react";
 import Marks from './Marks'
@@ -65,6 +66,8 @@ const Dashboard = () => {
       setMarks({
         SccPercent: data.ssc_percent,
         InterPercent: data.inter_percent,
+        Btech:data.btech_percent,
+        DiplomaPercent:data.diploma_percent
       });
     } catch (error) {
       console.error("Error:", error.message);
@@ -74,13 +77,13 @@ const Dashboard = () => {
     <React.Fragment>
       <div className="page-content">
         <Row>
-          <div className="col-12">
+          <div className="col-12" style={{ background:'#95a5a6', fontSize:"16px" }} >
             <div className="page-title-box d-flex align-items-center justify-content-between">
-              <h4 className="page-title mb-0 font-size-18">StudentDetails</h4>
+              <h4 className="page-title mb-0 " style={{color:'#353b48',fontSize:"25px"}}>Student Details</h4>
 
               <div className="page-title-right">
                 <ol className="breadcrumb m-0">
-                  <li className="breadcrumb-item active">
+                  <li className="breadcrumb-item active text-uppercases "  style={{color:'#353b48'}}>
                     Welcome to technical hub
                   </li>
                 </ol>
@@ -168,8 +171,11 @@ const Dashboard = () => {
           </Col>
         </Row>
         <Row>
-          <Marks/>
+          <Marks data={marks}/>
         </Row>
+        {/* <Row>
+          <Certification1/>
+        </Row> */}
       </div>
     </React.Fragment>
   );
