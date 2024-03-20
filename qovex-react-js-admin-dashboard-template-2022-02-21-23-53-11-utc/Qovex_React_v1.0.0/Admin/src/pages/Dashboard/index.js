@@ -98,7 +98,7 @@ const Dashboard = () => {
         CertificateId:certificateData.certificate_id
       })
       console.log(certificate)
-      const trainingResponse = await fetch("http://localhost:5050/students/certification", {
+      const trainingResponse = await fetch("http://localhost:5050/students/training", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,7 +106,18 @@ const Dashboard = () => {
         body: JSON.stringify({ roll_number: inputData }),
       });
       const tarinigData = await trainingResponse.json();
-      console.log("trainging data:", tarinigData);
+      console.log(tarinigData)
+      setTraining({
+        'Roll Number':tarinigData.roll_number,
+        Course:tarinigData.course,
+        'Course Type':tarinigData.course_type,
+        Duration:tarinigData.duration,
+        'Register Date':tarinigData.register_date,
+        Type:tarinigData.type,
+        'Pay eligibility':tarinigData.pay_eligibility,
+        'Refund eligibility':tarinigData.refund_eligibility,
+        'Attendance eligibility':tarinigData.attendance_eligibility
+      })
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -171,7 +182,7 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.entries(parentDetails).map(([key, value]) => (
+                    {Object.entries(training).map(([key, value]) => (
                       <tr key={key}>
                         <td>{key}</td>
                         <td>{value}</td>
