@@ -177,7 +177,7 @@ const Dashboard = () => {
                 <table className="table table-bordered table-striped">
                   <thead className="table-dark">
                     <tr className="text-uppercase">
-                      <th>Parents</th>
+                      <th>T-HUB</th>
                       <th>Information</th>
                     </tr>
                   </thead>
@@ -203,7 +203,7 @@ const Dashboard = () => {
                   <thead className="table-dark">
                     <tr className="text-uppercase">
                       <th>Student</th>
-                      <th>Information</th>
+                      <th> Certification Information</th>
                     </tr>
                   </thead>
                   <tbody>
