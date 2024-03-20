@@ -21,7 +21,17 @@ const Dashboard = () => {
     setShowDetails(!showDetails);
   };
   const [showParent, setShowParent] = useState(false);
+  const [showcerti, setShowCerti] = useState(false);
+  const [showthub,setShowthub]=useState(false)
+  const [certificate,setCertificate]=useState({})
+  const [training, setTraining] = useState({});
 
+  const toggleTUB = () => {
+    setShowthub(!showthub);
+  };
+  const toggleCerti = () => {
+    setShowCerti(!showcerti);
+  };
   const toggleParent = () => {
     setShowParent(!showParent);
   };
@@ -69,6 +79,34 @@ const Dashboard = () => {
         Btech:data.btech_percent,
         DiplomaPercent:data.diploma_percent
       });
+      //---------------*-----------
+      const certificateResponse = await fetch("http://localhost:5050/students/certification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roll_number: inputData }),
+      });
+      
+      const certificateData = await certificateResponse.json();
+      setCertificate({
+        Certification:certificateData.certification,
+        'Certification From':certificateData.certification_from,
+        Type:certificateData.type,'Exam Status':certificateData.exam_status,
+        Proctor:certificateData.proctor,Score:certificateData.score,
+        YearOfExam:certificateData.year_of_exam,
+        CertificateId:certificateData.certificate_id
+      })
+      console.log(certificate)
+      const trainingResponse = await fetch("http://localhost:5050/students/certification", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roll_number: inputData }),
+      });
+      const tarinigData = await trainingResponse.json();
+      console.log("trainging data:", tarinigData);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -117,6 +155,59 @@ const Dashboard = () => {
               Search
             </button>
           </div>
+        </Row>
+        <Row>
+        <Col lg={6} md={6} sm={12}>
+            <div className="table-responsive">
+              <button onClick={toggleTUB} className="btn btn-primary mb-3">
+                {showthub ? "Hide T-HUB Details" : "Show T-HUB Details"}
+              </button>
+              {showthub && (
+                <table className="table table-bordered table-striped">
+                  <thead className="table-dark">
+                    <tr className="text-uppercase">
+                      <th>Parents</th>
+                      <th>Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(parentDetails).map(([key, value]) => (
+                      <tr key={key}>
+                        <td>{key}</td>
+                        <td>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </Col>
+          <Col lg={6} md={6} sm={12}>
+            <div className="table-responsive">
+              <button onClick={toggleCerti} className="btn btn-primary mb-3">
+                {showcerti ? "Hide Cetification Details " : "Show Certification Details"}
+              </button>
+              {showcerti && (
+                <table className="table table-bordered table-striped">
+                  <thead className="table-dark">
+                    <tr className="text-uppercase">
+                      <th>Student</th>
+                      <th>Information</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(certificate).map(([key, value]) => (
+                      <tr key={key}>
+                        <td>{key}</td>
+                        <td>{value}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </Col>
+          
         </Row>
         <Row>
           <Col lg={6} md={6} sm={12}>

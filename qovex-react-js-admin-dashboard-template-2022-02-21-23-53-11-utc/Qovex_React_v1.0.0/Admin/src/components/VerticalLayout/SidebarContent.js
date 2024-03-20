@@ -94,19 +94,17 @@ const SidebarContent = props => {
               </Link>
               <ul className="sub-menu">
                 <li><Link to="/dashboard">{props.t("StudentDetails")}</Link></li>
-                <li><Link to="/dashboard2">{props.t("Certification")}</Link></li>
-                <li><Link to="/dashboard">{props.t("TrainingDetails")}</Link></li>
               </ul>
             </li>
 
-            <li>
+            {/* <li>
               <Link to="/calendar" className=" waves-effect">
                 <i className="mdi mdi-calendar-text"></i>
                 <span>{props.t("Calendar")}</span>
               </Link>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-inbox-full"></i>
                 <span>{props.t("Email")}</span>
@@ -131,8 +129,8 @@ const SidebarContent = props => {
                 <li><Link to="/tasks-kanban">{props.t("Kanban Board")}</Link></li>
                 <li><Link to="/tasks-create">{props.t("Create Task")}</Link></li>
               </ul>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-account-circle-outline"></i>
                 <span>{props.t("Pages")}</span>
@@ -344,9 +342,9 @@ const SidebarContent = props => {
                   </Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-emoticon-happy-outline"></i>
                 <span>{props.t("Icons")}</span>
@@ -367,9 +365,9 @@ const SidebarContent = props => {
                   <Link to="/icons-fontawesome">{props.t("Font awesome")}</Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-map-marker-outline"></i>
                 <span>{props.t("Maps")}</span>
@@ -385,9 +383,9 @@ const SidebarContent = props => {
                   <Link to="/maps-leaflet">{props.t("Leaflet Maps")}</Link>
                 </li>
               </ul>
-            </li>
+            </li> */}
 
-            <li>
+            {/* <li>
               <Link to="/#" className="has-arrow waves-effect">
                 <i className="mdi mdi-file-tree"></i>
                 <span>{props.t("Multi Level")}</span>
@@ -410,7 +408,7 @@ const SidebarContent = props => {
                   </ul>
                 </li>
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
       </SimpleBar>
